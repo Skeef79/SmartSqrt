@@ -6,6 +6,7 @@
 
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
         <link rel="icon" href="/static/icon.png" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     </head>
     <body>
         <div class="rootLayout">
@@ -34,19 +35,37 @@
             </div>
 
             <main class="contentLayout">
-                <div>
-                    <h2>Put ur number:</h2>
+                <div class = "mainContent">
                     <!-- onsubmit = "return false;" diables any action then we press enter-->
-                    <div autocomplete="off" spellcheck="false" method="POST" onsubmit="return false;">
-                        <input id="value" class="value" type="text" />
-                        <h2>Ur's number square root:</h2>
-                        <div id="result" class="result"></div>
+                    <div autocomplete="off" class = "inputField" spellcheck="false" method="POST" onsubmit="return false;">
+                        <input id="value" placeholder="Input value" class="value" type="text" />
+                    </div>
+                    
+                    <div class = "precTitle">
+                        <h2>Set precision:</h2>
+                    </div>
+                    
+                    <div class = "precisionContent"> 
+                        <div class = "precision">
+                            Range
+                        </div>
+                        <div class="slidecontainer">
+                            <input type="range" min="1" max="100" value="50" class="slider" id="precisionRange">
+                          </div>
+                        
+                    </div>
+
+                    <div id="result" class="result">
+                        Result
                     </div>
                 </div>
             </main>
 
             <div class = "contentFooter">
-                <div>Contact us: help@gmail.com</div>
+                <div>
+                    Contact us: 
+                    <a href="mailto:help@gmail.com">help@gmail.com</a>
+                </div>
                 <div>FAQ</div>
             </div>
         </div>
