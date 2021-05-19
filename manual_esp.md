@@ -22,7 +22,7 @@ La aplicación admite operaciones aritméticas y números complejos como están 
 
 ### Ejemplo de entrada
 
-! [] (https://i.imgur.com/eoYCdpW.png)
+![](https://i.imgur.com/eoYCdpW.png)
 
 ## Precisión
 
@@ -30,7 +30,7 @@ El número de posiciones decimales se puede ajustar ingresando su número en el 
 
 ### Precisión de ajuste
 
-! [] (https://i.imgur.com/38ZQ7Lc.png)
+![](https://i.imgur.com/38ZQ7Lc.png)
 
 ## Resultado
 
@@ -38,4 +38,4 @@ En el tercer y cuarto campo desde la parte superior, se muestran la primera y se
 
 ### Un ejemplo del resultado obtenido
 
-! [] (https://i.imgur.com/s9CI8Nz.png)
+![](https://i.imgur.com/s9CI8Nz.png)
