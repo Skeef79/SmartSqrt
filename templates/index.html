@@ -125,10 +125,16 @@
 
             const updatePrecisionNumber = () => {
                 const value = precisionNumber.value;
+                
+                if (value == "") {
+                    precisionSlider.value = 0;
+                    return;
+                }
+
                 if (value < minPrecision) {
                     precisionNumber.value = minPrecision;
                 }
-                if (value> maxPrecision) {
+                if (value > maxPrecision) {
                     precisionNumber.value = maxPrecision;
                 }
 
@@ -146,7 +152,12 @@
                     return "Error"
                 }
                 const result = math.sqrt(value);
-                precision = Number.parseInt(precisionNumber.value)
+                var precision = Number.parseInt(precisionNumber.value)
+                
+                if (!precision) {
+                    precision = 0;
+                }
+
                 if (precision == 0) {
                     return math.round(result)
                 }
@@ -156,6 +167,11 @@
 
             const getOpposite = (number) => {
                 const result = math.eval("-(" + number + ")")
+                var precision = Number.parseInt(precisionNumber.value)
+                if (!precision) {
+                    precision = 0;
+                }
+
                 if (precision == 0) {
                     return math.round(result)
                 }
