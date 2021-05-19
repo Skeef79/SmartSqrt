@@ -36,6 +36,10 @@
 
             <main class="contentLayout">
                 <div class = "mainContent">
+                    <div class = "inputTitle">
+                        <h2>Input value</h2>
+                    </div>
+
                     <!-- onsubmit = "return false;" diables any action then we press enter-->
                     <div autocomplete="off" class = "inputField" spellcheck="false" method="POST" onsubmit="return false;">
                         <input id="value" placeholder="Input value" class="value" type="text" />
@@ -54,10 +58,23 @@
                           </div>
                         
                     </div>
-
-                    <div id="result" class="result">
+                    
+                    <div class = "rootTitle1">
+                        <h2>First root</h2>
+                    </div>
+                    
+                    <div id="result1" class="result1">
                         Result
                     </div>
+
+                    <div class = "rootTitle2">
+                        <h2>Second root</h2>
+                    </div>
+                    
+                    <div id="result2" class="result2">
+                        Result
+                    </div>
+
                 </div>
             </main>
 
@@ -72,8 +89,11 @@
 
         <script>
             const inputValue = document.getElementById("value");
-            const result = document.getElementById("result");
+            //const result = document.getElementById("result");
             
+            const result1 = document.getElementById("result1")
+            const result2 = document.getElementById("result2")
+
             const precisionNumber = document.getElementById('number');
             const precisionSlider = document.getElementById('precisionRange');
             
@@ -119,14 +139,24 @@
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
                         
-                        console.log(xhr.responseText)
+                        const res = JSON.parse(xhr.responseText);
+                        res1 = res['res1']
+                        res2 = res['res2']
+                        
+                        console.log(res1)
+                        console.log(res2)
 
-                        if (xhr.responseText!="Error") {
-                            result.innerText = xhr.responseText;
+                        if (res1!="Error") {
+                            result1.innerText = res1
+                            result2.innerText = res2
                         }
 
-                        if (inputValue.value == "")
-                            result.innerText = "Result";
+
+                        if (inputValue.value == "") {
+                            result1.innerText = "Result";
+                            result2.innerText = "Result";
+                        }
+
                     }
                 };
             };
