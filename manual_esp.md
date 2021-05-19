@@ -10,15 +10,15 @@ La aplicación admite operaciones aritméticas y números complejos como están 
 
 "i" - notación de la unidad imaginaria
 
-"\ -" - resta
+"-" - resta
 
 "+" - adición
 
-"\ *" - multiplicación
+"*" - multiplicación
 
-"\ /" - división
+"/" - división
 
-"\ ^" - exponenciación
+"^" - exponenciación
 
 ### Ejemplo de entrada
 
