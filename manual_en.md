@@ -22,7 +22,7 @@ The application supports arithmetic operations and complex numbers as they are i
 
 ### Input example
 
-! [] (https://i.imgur.com/eoYCdpW.png)
+![](https://i.imgur.com/eoYCdpW.png)
 
 ## Accuracy
 
@@ -30,7 +30,7 @@ The number of decimal places can be adjusted by entering their number in the sec
 
 ### Setting accuracy
 
-! [] (https://i.imgur.com/38ZQ7Lc.png)
+![](https://i.imgur.com/38ZQ7Lc.png)
 
 ## Result
 
@@ -38,4 +38,4 @@ In the third and fourth fields from the top, the first and second complex roots 
 
 ### An example of the result obtained
 
-! [] (https://i.imgur.com/s9CI8Nz.png)
+![](https://i.imgur.com/s9CI8Nz.png)
