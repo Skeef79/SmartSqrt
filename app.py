@@ -10,6 +10,15 @@ app = Flask(__name__)
 def index():
     if request.method=="POST":
         data = json.loads(request.data.decode('utf-8'))
+
+        result = sqrt_logic.getSqrt(expr = data["value"], prec = int(data["prec"]))
+        resJSON = {
+            'res1': result,
+            'res2': result
+        }
+
+        return json.dumps(resJSON)
+        
         return sqrt_logic.getSqrt(expr = data["value"], prec = int(data["prec"]))
 
 
