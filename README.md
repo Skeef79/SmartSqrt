@@ -1,6 +1,13 @@
 # SmartSqrt
+
 Simple 3rd year course project to find a square root 
 
+## Документация для пользователя
+
+- Документация на русском: https://github.com/Skeef79/SmartSqrt/blob/master/manual_ru.md
+- Documentation in english: https://github.com/Skeef79/SmartSqrt/blob/master/manual_en.md
+- Documentación en español: https://github.com/Skeef79/SmartSqrt/blob/master/manual_esp.md
+- 中文文件: https://github.com/Skeef79/SmartSqrt/blob/master/manual_cn.md
 
 ### Правила разработки: 
 - Все изменения производятся сначала в development–branch, а потом подтверждаются в master–branch;
@@ -11,9 +18,3 @@ Simple 3rd year course project to find a square root
 - Комментарии, противоречащие коду, хуже, чем их отсутствие;
 - Имена констант должны содержать только заглавные буквы. Слова разделяются символами подчеркивания. Пример: NAME, NAME_WITH_SEVERAL_WORDS_IN_IT.
 
-## Документация для пользователя
-
-- Документация на русском: https://github.com/Skeef79/SmartSqrt/blob/master/manual_ru.md
-- Documentation in english: https://github.com/Skeef79/SmartSqrt/blob/master/manual_en.md
-- Documentación en español: https://github.com/Skeef79/SmartSqrt/blob/master/manual_esp.md
-- 中文文件: https://github.com/Skeef79/SmartSqrt/blob/master/manual_cn.md
