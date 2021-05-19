@@ -18,7 +18,7 @@ The application supports arithmetic operations and complex numbers as they are i
 
 "\ /" - division
 
-"\ * \ *" - exponentiation
+"\ ^" - exponentiation
 
 ### Input example
 
