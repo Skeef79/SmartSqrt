@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="eng">
     <head>
@@ -24,11 +23,11 @@
                             <label for="language-picker-select"></label>
 
                             <select name="language-picker-select" id="language-picker-select">
-                                <option lang="ru" vallue="russian">Russian</option>
-                                <option lang="de" value="deutsch">Deutsch</option>
-                                <option lang="en" value="english" selected>English</option>
-                                <option lang="fr" value="francais">Français</option>
-                                <option lang="it" value="italiano">Italiano</option>
+                                <option lang="ru" value="RU">Русский</option>
+                                <option lang="de" value="CN">中国人</option>
+                                <option lang="en" value="EN" selected>English</option>
+                                <option lang="fr" value="ES">Español</option>
+                                <!-- <option lang="it" value="IT">Italiano</option> -->
                             </select>
                         </form>
                     </div>
@@ -38,16 +37,16 @@
             <main class="contentLayout">
                 <div class = "mainContent">
                     <div class = "inputTitle">
-                        <h2>Input value</h2>
+                        <h2 id="inputVal">Input value</h2>
                     </div>
 
                     <!-- onsubmit = "return false;" diables any action then we press enter-->
                     <div autocomplete="off" class = "inputField" spellcheck="false" method="POST" onsubmit="return false;">
-                        <input id="value" placeholder="Input value" class="value" type="text" />
+                        <input id="value"  class="value" type="text" />
                     </div>
                     
                     <div class = "precTitle">
-                        <h2>Set precision:</h2>
+                        <h2 id="precTitle">Set precision:</h2>
                     </div>
                     
                     <div class = "precisionContent"> 
@@ -61,19 +60,19 @@
                     </div>
                     
                     <div class = "rootTitle1">
-                        <h2>First root</h2>
+                        <h2 id="rootTitle1">First root</h2>
                     </div>
                     
                     <div id="result1" class="result1">
-                        Result
+                        
                     </div>
 
                     <div class = "rootTitle2">
-                        <h2>Second root</h2>
+                        <h2 id="rootTitle2">Second root</h2>
                     </div>
                     
                     <div id="result2" class="result2">
-                        Result
+                        
                     </div>
 
                 </div>
@@ -81,16 +80,26 @@
 
             <div class = "contentFooter">
                 <div>
-                    Contact us: 
+                    <span id="contactUs">Contact us:</span>
                     <a href="mailto:help@gmail.com">help@gmail.com</a>
                 </div>
-                <div>FAQ</div>
+                <div>
+                    <a href="https://github.com/Skeef79/SmartSqrt" id = "documentation">User manual</a>
             </div>
         </div>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.0.0/math.js"
+        integrity="sha512-+KihqiIrhYt4/tFb42KiOJ+wr0PM6dVMw9twO1Ju+sZ0OdgurvE/9dy2jAS0Fr0MCVryF2EXxPH9HRXg6CaFgg=="
+        crossorigin="anonymous"></script>
+
         <script>
+
+            math.config({
+                number: 'BigNumber',
+                precision: 1000
+            })
+
             const inputValue = document.getElementById("value");
-            //const result = document.getElementById("result");
             
             const result1 = document.getElementById("result1")
             const result2 = document.getElementById("result2")
@@ -127,219 +136,125 @@
                 updateOutput();
 
             }
+            
+
+            const calcSqrt = () => {
+                try {
+                    var value = math.eval(inputValue.value);
+                } catch (e) {
+                    console.log("failed")
+                    return "Error"
+                }
+                const result = math.sqrt(value);
+                precision = Number.parseInt(precisionNumber.value)
+                if (precision == 0) {
+                    return math.round(result)
+                }
+
+                return math.format(result, {notation: 'fixed', precision: precision})
+            }
+
+            const getOpposite = (number) => {
+                const result = math.eval("-(" + number + ")")
+                if (precision == 0) {
+                    return math.round(result)
+                }
+
+                return math.format(result, {notation: 'fixed', precision: precision})
+            }
 
             //function to updateOutput after pressing characters
             const updateOutput = () => {
-                                
-                let xhr = new XMLHttpRequest();
 
-                xhr.open("POST", "/", true);
-                xhr.send(JSON.stringify({"value": inputValue.value,
-                            "prec": precisionNumber.value}))
+                if (inputValue.value == "") {
+                    result1.innerText = "";
+                    result2.innerText = "";
+                    return;
+                }
 
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-                        
-                        const res = JSON.parse(xhr.responseText);
-                        res1 = res['res1']
-                        res2 = res['res2']
-                        
-                        console.log(res1)
-                        console.log(res2)
-
-                        if (res1!="Error") {
-                            result1.innerText = res1
-                            result2.innerText = res2
-                        }
+                const firstSqrt = calcSqrt();
+                console.log(typeof firstSqrt)
+                console.log(firstSqrt)
 
 
-                        if (inputValue.value == "") {
-                            result1.innerText = "Result";
-                            result2.innerText = "Result";
-                        }
+                if (firstSqrt!="Error") {
+                    const secondSqrt = getOpposite(firstSqrt)
+                    result1.innerText = firstSqrt;
+                    result2.innerText = secondSqrt;
+                }            
 
-                    }
-                };
+                
+            
             };
 
             inputValue.addEventListener("input", updateOutput);
             precisionNumber.addEventListener("input", updatePrecisionNumber);
             precisionSlider.addEventListener("input",updatePrecisionSlider);
-
-
-        </script>
-    </body>
-</html>
-=======
-<!DOCTYPE html>
-<html lang="eng">
-    <head>
-        <meta charset="UTF-8" />
-        <title>SmartSqrt</title>
-
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-        <link rel="icon" href="/static/icon.png" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-    </head>
-    <body>
-        <div class="rootLayout">
-            <!-- HEADER -->
-            <div class="rootHeader">
-                <div class="contentHeader">
-                    <div class = "mainLogo">
-                        <img id="logo" src="/static/icon.png" />
-                        <h1>SmartSqrt</h1>
-                    </div>
-
-                    <div class="language-picker">
-                        <form action="" class="language-picker__form">
-                            <label for="language-picker-select"></label>
-
-                            <select name="language-picker-select" id="language-picker-select">
-                                <option lang="ru" vallue="russian">Russian</option>
-                                <option lang="de" value="deutsch">Deutsch</option>
-                                <option lang="en" value="english" selected>English</option>
-                                <option lang="fr" value="francais">Français</option>
-                                <option lang="it" value="italiano">Italiano</option>
-                            </select>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <main class="contentLayout">
-                <div class = "mainContent">
-                    <div class = "inputTitle">
-                        <h2>Input value</h2>
-                    </div>
-
-                    <!-- onsubmit = "return false;" diables any action then we press enter-->
-                    <div autocomplete="off" class = "inputField" spellcheck="false" method="POST" onsubmit="return false;">
-                        <input id="value" placeholder="Input value" class="value" type="text" />
-                    </div>
-                    
-                    <div class = "precTitle">
-                        <h2>Set precision:</h2>
-                    </div>
-                    
-                    <div class = "precisionContent"> 
-                        
-                        <input id="number" type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="50" min = "0" max="100" class = "precisionInput">
-                        
-                        <div class="slidecontainer">
-                            <input type="range" min="0" max="100" value="50" class="slider" id="precisionRange">
-                          </div>
-                        
-                    </div>
-                    
-                    <div class = "rootTitle1">
-                        <h2>First root</h2>
-                    </div>
-                    
-                    <div id="result1" class="result1">
-                        Result
-                    </div>
-
-                    <div class = "rootTitle2">
-                        <h2>Second root</h2>
-                    </div>
-                    
-                    <div id="result2" class="result2">
-                        Result
-                    </div>
-
-                </div>
-            </main>
-
-            <div class = "contentFooter">
-                <div>
-                    Contact us: 
-                    <a href="mailto:help@gmail.com">help@gmail.com</a>
-                </div>
-                <div>FAQ</div>
-            </div>
-        </div>
-
-        <script>
-            const inputValue = document.getElementById("value");
-            //const result = document.getElementById("result");
             
-            const result1 = document.getElementById("result1")
-            const result2 = document.getElementById("result2")
-
-            const precisionNumber = document.getElementById('number');
-            const precisionSlider = document.getElementById('precisionRange');
-            
-            
-            const minPrecision = 0;
-            const maxPrecision = 100;
-            const updatePrecisionSlider = () => {
-                const value = precisionSlider.value;
-                if (value < minPrecision) {
-                    precisionSlider.value = minPrecision;
-                }
-                if (value>maxPrecision) {
-                    precisionSlider.value = maxPrecision;
-                }
-
-                precisionNumber.value = precisionSlider.value;
-                updateOutput();
-            }
-
-            const updatePrecisionNumber = () => {
-                const value = precisionNumber.value;
-                if (value < minPrecision) {
-                    precisionNumber.value = minPrecision;
-                }
-                if (value> maxPrecision) {
-                    precisionNumber.value = maxPrecision;
-                }
-
-                precisionSlider.value = precisionNumber.value;
-                updateOutput();
-
-            }
-
-            //function to updateOutput after pressing characters
-            const updateOutput = () => {
-                                
-                let xhr = new XMLHttpRequest();
-
-                xhr.open("POST", "/", true);
-                xhr.send(JSON.stringify({"value": inputValue.value,
-                            "prec": precisionNumber.value}))
-
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-                        
-                        const res = JSON.parse(xhr.responseText);
-                        res1 = res['res1']
-                        res2 = res['res2']
-                        
-                        console.log(res1)
-                        console.log(res2)
-
-                        if (res1!="Error") {
-                            result1.innerText = res1
-                            result2.innerText = res2
-                        }
 
 
-                        if (inputValue.value == "") {
-                            result1.innerText = "Result";
-                            result2.innerText = "Result";
-                        }
-
-                    }
-                };
+            const dictEn = {
+                inputVal: "Input value",
+                precTitle: "Set precision",
+                rootTitle1: "First root",
+                rootTitle2: "Second root",
+                contactUs: "Contact us:",
+                documentation: "User's manual",
             };
 
-            inputValue.addEventListener("input", updateOutput);
-            precisionNumber.addEventListener("input", updatePrecisionNumber);
-            precisionSlider.addEventListener("input",updatePrecisionSlider);
+            const dictEsp = {
+                inputVal: "Valor de entrada",
+                precTitle: "Establecer precisión",
+                rootTitle1: "Primera raíz",
+                rootTitle2: "Segunda raíz",
+                contactUs: "Contacta con nosotras/nosotros:",
+                documentation: "Manual de usuario",
+            };
+
+            const dictCh = {
+                inputVal: "輸入值",
+                precTitle: "設定精度",
+                rootTitle1: "第一根",
+                rootTitle2: "第二根",
+                contactUs: "用戶手冊:",
+                documentation: "用戶手冊",
+            };
+
+            const dictRus = {
+                inputVal: "Введите значение",
+                precTitle: "Задайте точность",
+                rootTitle1: "Первый корень",
+                rootTitle2: "Второй корень",
+                contactUs: "Написать нам:",
+                documentation: "Руководство пользователя",
+            };
+
+            const allDicts = {
+                RU: dictRus,
+                EN: dictEn,
+                ES: dictEsp,
+                CN: dictCh,
+            };
+            const valueInput = document.getElementById("inputVal");
+            const result1Input = document.getElementById("rootTitle1");
+            const result2Input = document.getElementById("rootTitle2");
+            const precisionInput = document.getElementById("precTitle");
+            const documentation = document.getElementById("documentation");
+            const contactUs = document.getElementById("contactUs");
+            const languageSelect = document.getElementById("language-picker-select");
+
+            const updateLanguage = () => {
+                console.log("hueta");
+                valueInput.innerText = allDicts[languageSelect.value].inputVal;
+                result1Input.innerText = allDicts[languageSelect.value].rootTitle1;
+                result2Input.innerText = allDicts[languageSelect.value].rootTitle2;
+                precisionInput.innerText = allDicts[languageSelect.value].precTitle;
+                documentation.innerText = allDicts[languageSelect.value].documentation;
+                contactUs.innerText = allDicts[languageSelect.value].contactUs;
+            };
+            languageSelect.addEventListener("input", updateLanguage);
 
 
         </script>
     </body>
 </html>
->>>>>>> 43b0d22a59484c3046b9ea031b0225a67af042fe
