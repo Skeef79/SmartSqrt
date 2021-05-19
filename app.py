@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template, request
 from apps import sqrt_logic
-
+import json
 
 
 app = Flask(__name__)
@@ -9,8 +9,9 @@ app = Flask(__name__)
 @app.route("/", methods = ["GET","POST"])
 def index():
     if request.method=="POST":
-        expr = request.data.decode('utf-8')
-        return sqrt_logic.getSqrt(expr=expr)
+        data = json.loads(request.data.decode('utf-8'))
+        return sqrt_logic.getSqrt(expr = data["value"], prec = int(data["prec"]))
+
 
     return render_template('index.html')
 

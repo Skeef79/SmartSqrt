@@ -46,11 +46,11 @@
                     </div>
                     
                     <div class = "precisionContent"> 
-                        <div class = "precision">
-                            Range
-                        </div>
+                        
+                        <input id="number" type="number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="50" min = "0" max="100" class = "precisionInput">
+                        
                         <div class="slidecontainer">
-                            <input type="range" min="1" max="100" value="50" class="slider" id="precisionRange">
+                            <input type="range" min="0" max="100" value="50" class="slider" id="precisionRange">
                           </div>
                         
                     </div>
@@ -73,28 +73,69 @@
         <script>
             const inputValue = document.getElementById("value");
             const result = document.getElementById("result");
+            
+            const precisionNumber = document.getElementById('number');
+            const precisionSlider = document.getElementById('precisionRange');
+            
+            
+            const minPrecision = 0;
+            const maxPrecision = 100;
+            const updatePrecisionSlider = () => {
+                const value = precisionSlider.value;
+                if (value < minPrecision) {
+                    precisionSlider.value = minPrecision;
+                }
+                if (value>maxPrecision) {
+                    precisionSlider.value = maxPrecision;
+                }
+
+                precisionNumber.value = precisionSlider.value;
+                updateOutput();
+            }
+
+            const updatePrecisionNumber = () => {
+                const value = precisionNumber.value;
+                if (value < minPrecision) {
+                    precisionNumber.value = minPrecision;
+                }
+                if (value> maxPrecision) {
+                    precisionNumber.value = maxPrecision;
+                }
+
+                precisionSlider.value = precisionNumber.value;
+                updateOutput();
+
+            }
 
             //function to updateOutput after pressing characters
             const updateOutput = () => {
-                console.log(inputValue.value);
-                if (inputValue.value == "") {
-                    result.innerText = "";
-                    return;
-                }
+                                
                 let xhr = new XMLHttpRequest();
 
                 xhr.open("POST", "/", true);
-                xhr.send(inputValue.value);
+                xhr.send(JSON.stringify({"value": inputValue.value,
+                            "prec": precisionNumber.value}))
 
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-                        console.log(xhr.responseText);
-                        result.innerText = xhr.responseText;
+                        
+                        console.log(xhr.responseText)
+
+                        if (xhr.responseText!="Error") {
+                            result.innerText = xhr.responseText;
+                        }
+
+                        if (inputValue.value == "")
+                            result.innerText = "Result";
                     }
                 };
             };
 
             inputValue.addEventListener("input", updateOutput);
+            precisionNumber.addEventListener("input", updatePrecisionNumber);
+            precisionSlider.addEventListener("input",updatePrecisionSlider);
+
+
         </script>
     </body>
 </html>
