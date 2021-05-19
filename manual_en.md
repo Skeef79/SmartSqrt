@@ -10,15 +10,15 @@ The application supports arithmetic operations and complex numbers as they are i
 
 "i" - notation of the imaginary unit
 
-"\ -" - subtraction
+"-" - subtraction
 
 "+" - addition
 
-"\ *" - multiplication
+"*" - multiplication
 
-"\ /" - division
+"/" - division
 
-"\ ^" - exponentiation
+"^" - exponentiation
 
 ### Input example
 
