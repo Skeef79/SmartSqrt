@@ -128,6 +128,8 @@
                 
                 if (value == "") {
                     precisionSlider.value = 0;
+                    updateOutput();
+                    
                     return;
                 }
 
@@ -152,7 +154,7 @@
                     return "Error"
                 }
                 const result = math.sqrt(value);
-                var precision = Number.parseInt(precisionNumber.value)
+                var precision = Number.parseInt(precisionSlider.value)
                 
                 if (!precision) {
                     precision = 0;
@@ -167,7 +169,7 @@
 
             const getOpposite = (number) => {
                 const result = math.eval("-(" + number + ")")
-                var precision = Number.parseInt(precisionNumber.value)
+                var precision = Number.parseInt(precisionSlider.value)
                 if (!precision) {
                     precision = 0;
                 }
