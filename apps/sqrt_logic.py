@@ -15,10 +15,18 @@ def prettifyNumber(num, prec = 50, eps=1e-12):
     re = num.real
     im = num.imag
 
-    outValue = "{:.20f}".format(re)
+    #if imag <0 then add - 
+
+    reStr = '%.*f' % (prec, re)
+    imStr = '%.*f' % (prec, im)
+
+    outValue = reStr;
     if abs(im)>eps:
-        outValue += " + {:.20f}i".format(im)
-    
+        if im < 0:
+            outValue+= f' - {imStr[1:]}i'
+        else:
+            outValue += f' + {imStr}i'
+
     return outValue
 
 def convert(expr):
@@ -35,12 +43,14 @@ def convert(expr):
     return result;
 
 
-def getSqrt(expr, prec):
+def getSqrt(expr, prec = 50):
     #cmath's complex numbers need's to have j as an imaginary unit
     expr = convert(expr)
 
+    print(expr)
+    
     try:
-        result = eval(f'cmath.sqrt(1*({expr}))')
+        result = eval(f'cmath.sqrt({expr})')
         return prettifyNumber(num = result, prec = prec)
     except:
         return "Error"
