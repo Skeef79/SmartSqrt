@@ -18,7 +18,7 @@ La aplicación admite operaciones aritméticas y números complejos como están 
 
 "\ /" - división
 
-"\ * \ *" - exponenciación
+"\ ^" - exponenciación
 
 ### Ejemplo de entrada
 
